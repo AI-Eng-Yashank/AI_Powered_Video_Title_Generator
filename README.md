@@ -31,28 +31,28 @@ A production-ready FastAPI system that generates **trend-aware, click-optimized 
 
 | Feature | Description |
 |---------|-------------|
-| 🎥 **Video Processing** | Upload MP4, MOV, AVI, MKV, WebM, FLV, WMV (up to 5GB) |
-| 📝 **AI Transcription** | Automatic speech-to-text via Groq Whisper API |
-| 📊 **Trend Intelligence** | Real-time trends from Google, YouTube, Reddit |
-| 🤖 **AI Title Generation** | 5 unique titles with different styles per video |
-| 🎯 **Platform Optimization** | Titles tailored for YouTube, TikTok, Instagram, Twitter |
-| 🗄️ **Database Integration** | Neon DB (PostgreSQL) for data persistence |
-| ⚡ **Fast Processing** | ~1 minute for 10-minute videos |
+|  **Video Processing** | Upload MP4, MOV, AVI, MKV, WebM, FLV, WMV (up to 5GB) |
+|  **AI Transcription** | Automatic speech-to-text via Groq Whisper API |
+|  **Trend Intelligence** | Real-time trends from Google, YouTube, Reddit |
+|  **AI Title Generation** | 5 unique titles with different styles per video |
+|  **Platform Optimization** | Titles tailored for YouTube, TikTok, Instagram, Twitter |
+|  **Database Integration** | Neon DB (PostgreSQL) for data persistence |
+|  **Fast Processing** | ~1 minute for 10-minute videos |
 
 ### Large File Support (3GB+ Videos)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│               LARGE VIDEO PROCESSING PIPELINE                    │
+│               LARGE VIDEO PROCESSING PIPELINE                   │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  3GB Video ──▶ Extract ──▶ Compress ──▶ Chunk ──▶ Transcribe   │
-│                 50MB        <25MB                  📝            │
-│                                                                  │
+│                                                                 │
+│  3GB Video ──▶ Extract ──▶ Compress ──▶ Chunk ──▶ Transcribe  │
+│                 50MB        <25MB                               │
+│                                                                 │
 │  Compression: 60-100x size reduction (3GB → 30-50MB)            │
 │  Chunking: Auto-split if audio > 25MB                           │
 │  Merging: Seamless transcript with context continuity           │
-│                                                                  │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
