@@ -266,6 +266,13 @@ class TrendIntelligenceModule:
             RedditTrendsSource(),
         ]
         
+        # Add DuckDuckGo source (no API key needed)
+        try:
+            from app.modules.duckduckgo_trends import DuckDuckGoTrendsSource
+            self.sources.append(DuckDuckGoTrendsSource())
+        except Exception as e:
+            logger.warning(f"Could not initialize DuckDuckGo trends: {e}")
+        
         logger.info(f"Trend Intelligence initialized with {len(self.sources)} sources")
     
     def get_configured_sources(self) -> list[str]:

@@ -33,6 +33,7 @@ class GeneratedTitle(BaseModel):
     title: str = Field(description="The generated title")
     style: str = Field(description="Title style (curiosity, how-to, listicle, etc.)")
     reasoning: Optional[str] = Field(default=None, description="Why this title works")
+    hashtags: list[str] = Field(default_factory=list, description="Recommended hashtags for discoverability")
 
 
 class TitleGenerationRequest(BaseModel):

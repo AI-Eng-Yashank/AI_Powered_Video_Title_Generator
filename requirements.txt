@@ -30,6 +30,9 @@ tenacity==9.0.0
 # Caching (optional - in-memory by default)
 cachetools==5.5.0
 
+# DuckDuckGo Search (no API key needed)
+duckduckgo-search>=7.0.0
+
 # Optional: Local Whisper (if you want fallback to local transcription)
 # Uncomment if you need local transcription capability
 # faster-whisper==1.1.0

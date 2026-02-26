@@ -34,23 +34,23 @@ class AITitleGenerationModule:
     PLATFORM_GUIDANCE = {
         Platform.YOUTUBE: {
             "max_length": 70,
-            "style": "Use curiosity gaps, numbers, and emotional triggers. YouTube rewards clear, searchable titles.",
+            "style": "AGGRESSIVE curiosity gaps, power words, CAPS for emphasis. Use !! and ? to create urgency. YouTube rewards bold, searchable titles that STOP the scroll.",
         },
         Platform.INSTAGRAM: {
             "max_length": 60,
-            "style": "Short, punchy, emoji-friendly. Focus on visual appeal and relatability.",
+            "style": "Short, PUNCHY, emoji-heavy 🔥💀⚠️. Make it feel urgent and unmissable. Relatability + shock value.",
         },
         Platform.TIKTOK: {
             "max_length": 50,
-            "style": "Ultra-short, trendy, use Gen-Z language. Hook in first 3 words.",
+            "style": "Ultra-short, VIRAL energy, Gen-Z language. Hook in first 3 words. Use !! and emojis aggressively.",
         },
         Platform.TWITTER: {
             "max_length": 60,
-            "style": "Concise, shareable, conversation-starting. Leave room for retweet comments.",
+            "style": "Hot-take energy, conversation-starting, PROVOCATIVE. Use ? and !! to drive engagement.",
         },
         Platform.GENERAL: {
             "max_length": 70,
-            "style": "Balanced approach: clear, engaging, and platform-agnostic.",
+            "style": "Bold, high-energy, attention-grabbing. Use power words and special characters to stand out.",
         },
     }
     
@@ -82,24 +82,31 @@ class AITitleGenerationModule:
         """Create the system prompt for title generation."""
         guidance = self.PLATFORM_GUIDANCE.get(platform, self.PLATFORM_GUIDANCE[Platform.GENERAL])
         
-        return f"""You are an expert video title strategist specializing in viral content optimization.
+        return f"""You are an AGGRESSIVE viral video title strategist. You create titles that STOP the scroll and make people NEED to click.
 
-Your task is to generate highly engaging, click-worthy video titles that:
-1. Accurately represent the video content (no misleading clickbait)
-2. Incorporate current trending topics when relevant
-3. Maximize click-through rate (CTR)
-4. Are optimized for {platform.value}
+Your task is to generate BOLD, high-energy, attention-grabbing video titles that:
+1. Use special characters strategically: !! ? 🔥 ⚠️ 💀 to amplify urgency and emotion
+2. Include at least one CAPITALIZED power word per title (e.g., INSANE, BRUTAL, SHOCKING, NOBODY, EVERYTHING)
+3. Create a sense of urgency — boring titles get ZERO clicks
+4. Incorporate current trending topics when relevant
+5. Are optimized for {platform.value}
 
 Platform Guidelines:
 - Maximum length: {guidance['max_length']} characters
 - Style: {guidance['style']}
 
-Title Styles to Use:
-- "How-to": Educational, clear benefit (e.g., "How I Learned X in 30 Days")
-- "Curiosity Gap": Create intrigue without revealing everything (e.g., "The One Thing Nobody Tells You About...")
-- "Listicle": Numbers work (e.g., "5 Ways to...", "Top 10...")
-- "Challenge/Story": Personal narrative (e.g., "I Tried X for a Week...")
-- "Contrarian": Challenge assumptions (e.g., "Why Everyone Is Wrong About...")
+Title Styles to Use (be AGGRESSIVE with each):
+- "how-to": Bold educational hook (e.g., "I Mastered X in 24 Hours — Here's EXACTLY How!!!")
+- "curiosity": Shock/urgency gap (e.g., "This Changes EVERYTHING About X?! (Nobody Saw This Coming)")
+- "listicle": Power number-based (e.g., "7 BRUTAL Truths About X That Will Blow Your Mind 🔥")
+- "story": Dramatic personal narrative (e.g., "I Tried X and What Happened Next Was INSANE!!!")
+- "contrarian": Provocative hot-take (e.g., "STOP Doing X Right Now!! Here's Why Everyone Is WRONG 💀")
+
+RULES:
+- EVERY title MUST contain at least one special character (!! or ? or 🔥 or ⚠️ or 💀)
+- EVERY title MUST have at least one word in ALL CAPS for emphasis
+- NO generic, safe, boring titles — if it doesn't create urgency, rewrite it
+- Generate 3-5 relevant hashtags per title for discoverability
 
 You MUST respond with valid JSON only. No markdown, no explanation outside the JSON."""
 
@@ -125,7 +132,7 @@ You MUST respond with valid JSON only. No markdown, no explanation outside the J
         
         trends_text = ", ".join(trend_keywords) if trend_keywords else "No specific trends available"
         
-        return f"""Generate {num_titles} unique video titles based on the following:
+        return f"""Generate {num_titles} unique AGGRESSIVE video titles based on the following:
 
 VIDEO TRANSCRIPT:
 {transcript_text}
@@ -134,19 +141,23 @@ CURRENT TRENDING TOPICS:
 {trends_text}
 
 REQUIREMENTS:
-1. Each title must be distinct in style and approach
-2. Titles should be accurate to the video content
-3. Incorporate trends ONLY if naturally relevant
-4. Vary between different title styles (how-to, curiosity, listicle, etc.)
+1. Each title MUST use special characters (!! ? 🔥 ⚠️ 💀) for emphasis
+2. Each title MUST have at least one CAPITALIZED power word
+3. Titles should feel URGENT, bold, and unmissable
+4. Incorporate trends when naturally relevant
+5. NO boring, generic, or "safe" titles — every title must STOP the scroll
+6. Each title must be distinct in style and approach
+7. Generate 3-5 relevant hashtags per title (with # prefix) for trending discoverability
 
 Respond with this exact JSON structure:
 {{
     "transcript_summary": "2-3 sentence summary of the video content",
     "titles": [
         {{
-            "title": "The actual title text",
+            "title": "The actual AGGRESSIVE title text with special characters!!",
             "style": "curiosity|how-to|listicle|story|contrarian",
-            "reasoning": "Brief explanation of why this title works"
+            "reasoning": "Brief explanation of why this title works",
+            "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3"]
         }}
     ],
     "trends_used": ["list", "of", "trends", "incorporated"]
@@ -186,7 +197,8 @@ Respond with this exact JSON structure:
             titles.append(GeneratedTitle(
                 title=item.get("title", ""),
                 style=item.get("style", "general"),
-                reasoning=item.get("reasoning")
+                reasoning=item.get("reasoning"),
+                hashtags=item.get("hashtags", [])
             ))
         
         if not titles:
