@@ -32,6 +32,7 @@ class GeneratedTitle(BaseModel):
     """A single generated title with metadata."""
     title: str = Field(description="The generated title")
     style: str = Field(description="Title style (curiosity, how-to, listicle, etc.)")
+    tier: str = Field(default="aggressive", description="Title tier: aggressive, punchy, or plain")
     reasoning: Optional[str] = Field(default=None, description="Why this title works")
     hashtags: list[str] = Field(default_factory=list, description="Recommended hashtags for discoverability")
 
